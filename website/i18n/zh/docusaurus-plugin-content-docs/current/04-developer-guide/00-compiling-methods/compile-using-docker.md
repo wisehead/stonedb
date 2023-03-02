@@ -214,7 +214,7 @@ Starting MySQL.                                            [  OK  ]
 Enter password:
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 2
-Server version: 5.7.36-StoneDB-log
+Server version: 5.7.41-StoneDB-log
 
 Copyright (c) 2021, 2022 StoneAtom Group Holding Limited
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.

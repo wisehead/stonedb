@@ -17,7 +17,7 @@ Changes in StoneDB_5.7_v1.0.0 (2022-08-31, General Availability)
 
 Support for MySQL 5.7
 
-- Important Change: The Tianmu engine supports MySQL 5.7，base line edition MySQL 5.7.36. This change applies to the StoneDB database which would be fully compatible with the MySQL 5.7 protocols.
+- Important Change: The Tianmu engine supports MySQL 5.7，base line edition MySQL 5.7.41. This change applies to the StoneDB database which would be fully compatible with the MySQL 5.7 protocols.
 
 Functionality Added or Changed
 

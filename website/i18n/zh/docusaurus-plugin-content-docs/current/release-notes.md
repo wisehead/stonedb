@@ -15,7 +15,7 @@ sidebar_position: 11.0
 
 ## 支持MySQL 5.7
 
-- **关键项：** StoneDB 数据库支持MySQL 5.7 协议，基线版本：MySQL 5.7.36
+- **关键项：** StoneDB 数据库支持MySQL 5.7 协议，基线版本：MySQL 5.7.41
 ## 功能添加或改变
 
 - **关键项：** StoneDB 数据库的列式存储引擎从 StoneDB 变更为 Tianmu

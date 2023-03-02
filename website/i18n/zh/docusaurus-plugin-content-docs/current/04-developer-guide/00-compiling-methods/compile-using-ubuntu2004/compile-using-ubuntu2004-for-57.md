@@ -245,7 +245,7 @@ cat /stonedb57/install/log/mysqld.log |grep password
 mysql: [Warning] Using a password on the command line interface can be insecure.
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 2
-Server version: 5.7.36-StoneDB-debug-log build-
+Server version: 5.7.41-StoneDB-debug-log build-
 
 Copyright (c) 2021, 2022 StoneAtom Group Holding Limited
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
