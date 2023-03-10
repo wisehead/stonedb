@@ -590,6 +590,12 @@ void Engine::EncodeInsertRecord(const std::string &table_path, Field **field, si
 
   for (uint i = 0; i < col; i++) {
     Field *f = field[i];
+    //B_chenhui
+    if (strcmp(f->field_name, "id") == 0) {
+      int64 id = f->val_int();
+      TIANMU_LOG(LogCtl_Level::ERROR, "xxx insert. table:%s, id:%lld.", *f->table_name,id);
+    }
+    //E_chenhui
     {  // resize
       size_t length;
       if (f->flags & BLOB_FLAG)
@@ -1660,6 +1666,12 @@ void Engine::UpdateToDelta(const std::string &table_path, std::shared_ptr<TableS
       continue;
     }
     auto field = table->field[col_id];
+    //B_chenhui
+    if (strcmp(field->field_name, "id") == 0) {
+      int64 id = field->val_int();
+      TIANMU_LOG(LogCtl_Level::ERROR, "xxx update. table:%s, id:%lld, row_id:%lld", field->table_name,id, row_id);
+    }
+    //E_chenhui
     // Determine whether the column is a primary key
     if (tab) {
       std::vector<uint> keycols = tab->KeyCols();

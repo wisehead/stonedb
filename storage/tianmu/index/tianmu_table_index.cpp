@@ -170,6 +170,11 @@ common::ErrorCode TianmuTableIndex::InsertIndex(core::Transaction *tx, std::vect
   StringWriter value, key;
 
   rocksdb_key_->pack_key(key, fields, value);
+  //B_chenhui
+  for (int i = 0; i < key.length(); i++) {
+    TIANMU_LOG(LogCtl_Level::ERROR, "xxx InsertIndex() key[%d]:%x",i,key.ptr()[i]);
+  }
+  //E_chenhui
 
   common::ErrorCode err_code = CheckUniqueness(tx, {(const char *)key.ptr(), key.length()});
   if (err_code != common::ErrorCode::SUCCESS)

@@ -755,6 +755,9 @@ int ha_tianmu::index_read([[maybe_unused]] uchar *buf, [[maybe_unused]] const uc
         uint64_t rowid;
         if (index->GetRowByKey(current_txn_, keys, rowid) == common::ErrorCode::SUCCESS) {
           rc = fill_row_by_id(buf, rowid);
+          //B_chenhui
+          TIANMU_LOG(LogCtl_Level::ERROR, "xxx index_read(). table:%s, key:%s, row_id:%lld", table_name_, key, rowid);
+          //E_chenhui
         }
         if (!rc)
           table->status = 0;

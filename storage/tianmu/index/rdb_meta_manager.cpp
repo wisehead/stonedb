@@ -127,6 +127,10 @@ common::ErrorCode RdbKey::unpack_field_number(StringReader &key, std::string &fi
 }
 
 void RdbKey::pack_field_string(StringWriter &info, StringWriter &key, std::string &field) {
+  //B_chenhui
+  if (field.length() == 0) 
+    return;
+  //E_chenhui
   // version compatible
   if (index_ver_ == static_cast<uint16_t>(IndexInfoType::INDEX_INFO_VERSION_INITIAL)) {
     key.write((const uchar *)field.data(), field.length());
@@ -140,7 +144,10 @@ void RdbKey::pack_field_string(StringWriter &info, StringWriter &key, std::strin
     size_t copy_len = std::min<size_t>(CHUNKSIZE - 1, data.remain_len());
     pad_bytes = CHUNKSIZE - 1 - copy_len;
     // write the data len.
-    key.write((const uchar *)data.read(copy_len), copy_len);
+    // if (copy_len > 0)
+    {
+      key.write((const uchar *)data.read(copy_len), copy_len);
+    }
 
     Separator separator;
     if (pad_bytes) {  // not full of A pack string.
