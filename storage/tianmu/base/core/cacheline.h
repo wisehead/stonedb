@@ -29,10 +29,11 @@ namespace Tianmu {
 namespace base {
 
 // Platform-dependent cache line size for alignment and padding purposes.
+//20220915 Kunpeng Platform Adaptation Code
 static constexpr size_t cache_line_size =
 #if defined(__x86_64__) || defined(__i386__)
     64;
-#elif defined(__s390x__) || defined(__zarch__)
+#elif defined(__s390x__) || defined(__zarch__)  || defined(__aarch64__)
     256;
 #elif defined(__ppc64__)
     128;

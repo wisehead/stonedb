@@ -23,6 +23,8 @@
 #include "mysqld.h"
 #include "build_info.h"
 #include "mysqld_daemon.h"
+//20220915 Kunpeng Platform Adaptation Code
+#include "prctl.h"
 
 #include <vector>
 #include <algorithm>

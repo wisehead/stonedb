@@ -63,29 +63,101 @@ common::RoughSetValue And(common::RoughSetValue f, common::RoughSetValue s);
 
 inline bool IsDoubleNull(const double d) { return *(int64_t *)&d == common::NULL_VALUE_64; }
 
-inline uint GetBitLen(uint x) {
-#ifdef __x86_64__
-  uint position;
-  if (!x)
-    return 0;
-  asm("bsrl %1, %0" : "=r"(position) : "r"(x));
-  return position + 1;
+//20220915 Kunpeng Platform Adaptation Code
+inline uint32_t GetBitLen(uint32_t x)
+{
+	 if (!x)
+	{
+		return 0;
+	}
+#if defined(__GNUC__) && (defined(__x86_64__) || defined (__i386__))
+    uint32_t position = 0;
+    asm("bsrl %1, %0" : "=r"(position) : "r"(x));
+    return position + 1;
+#elif defined HAVE___BUILTIN_CLZ
+	return 32 - __builtin_clz(x);
+#elif defined HAVE__BITSCANREVERSE
+	uint32_t r;
+	unsigned char res = _BitScanReverse(&r, (unsigned long)x);
+	assert(res > 0);
+	return 32 - r;
 #else
-#error "Unsupported system."
+	uint32_t position = 32;
+	if (!(x & 0xffff0000))
+	{
+		x <<= 16;
+		position -= 16;
+	}
+	if (!(x & 0xff000000))
+	{
+		x <<= 8;
+		position -= 8;
+	}
+	if (!(x & 0xf0000000))
+	{
+		x <<= 4;
+		position -= 4;
+	}
+	if (!(x & 0xc0000000))
+	{
+		x <<= 2;
+		position -= 2;
+	}
+	if (!(x & 0x80000000))
+	{
+		x <<= 1;
+		position -= 1;
+	}
+	return position;
 #endif
 }
 
-inline uint GetBitLen(uint64_t x) {
-#ifdef __x86_64__
-  uint64_t position;
-  if (!x)
-    return 0;
-  asm("bsr %1, %0" : "=r"(position) : "r"(x));
-  return (uint)position + 1;
+inline uint32_t GetBitLen(uint64_t x)
+{
+	 if (!x)
+	{
+		return 0;
+	}
+#if defined(__GNUC__) && defined(__x86_64__)
+	uint64_t position = 0;
+	asm("bsr %1, %0" : "=r"(position) : "r"(x));
+	return position + 1;
 #else
-#error "Unsupported system."
+	uint32_t position=64;
+	if(!(x & 0xffffffff00000000 ))
+	{
+		x<<=32;
+		position-=32;
+	}
+	if(!(x & 0xffff000000000000 ))
+	{
+		x<<=16;
+		position-=16;
+	}
+	if(!(x & 0xff00000000000000 ))
+	{
+		x<<=8;
+		position-=8;
+	}
+	if(!(x & 0xf000000000000000 ))
+	{
+		x<<=4;
+		position-=4;
+	}
+	if(!(x & 0xc000000000000000 ))
+	{
+		x<<=2;
+		position-=2;
+	}
+	if(!(x & 0x8000000000000000 ))
+	{
+		x<<=1;
+		position-=1;
+	}
+	return position;	
 #endif
 }
+//20220915 Kunpeng Platform Adaptation Code
 
 inline uint GetBitLen(ushort x) { return GetBitLen((uint)x); }
 inline uint GetBitLen(uchar x) { return GetBitLen((uint)x); }
