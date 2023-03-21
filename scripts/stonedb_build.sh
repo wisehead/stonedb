@@ -81,7 +81,7 @@ cmake ../../ \
 -DWITH_BOOST=/usr/local/stonedb-boost \
 -DWITH_MARISA=/usr/local/stonedb-marisa \
 -DWITH_ROCKSDB=/usr/local/stonedb-gcc-rocksdb \
--DCMAKE_CXX_FLAGS_RELEASE="-O3 -DNDEBUG -DDBUG_OFF -fabi-version=2 -fno-omit-frame-pointer -fno-strict-aliasing -Wno-error -fpermissive -Wno-unused-variable -Wno-unused-parameter -gdwarf-2 -std=c++1z -fno-sized-deallocation" \
+-DCMAKE_CXX_FLAGS_RELEASE="-O3 -fsigned-char -DNDEBUG -DDBUG_OFF -fabi-version=2 -fno-omit-frame-pointer -fno-strict-aliasing -Wno-error -fpermissive -Wno-unused-variable -Wno-unused-parameter -gdwarf-2 -std=c++1z -fno-sized-deallocation" \
 2>&1 | tee -a ${build_log}
 
 # step 5. make & make install
