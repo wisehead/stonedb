@@ -78,7 +78,9 @@ struct DPN final {
   std::atomic_ulong tagged_ptr;
 
  public:
-  bool CAS(uint64_t &expected, uint64_t desired) { return tagged_ptr.compare_exchange_weak(expected, desired); }
+  // on arm platform, we need strong memory order here.
+  bool CAS(uint64_t &expected, uint64_t desired) { return tagged_ptr.compare_exchange_strong(expected, desired); }
+  //bool CAS(uint64_t &expected, uint64_t desired) { return tagged_ptr.compare_exchange_weak(expected, desired); }
   uint64_t GetPackPtr() const { return tagged_ptr.load(); }
   void SetPackPtr(uint64_t v) { tagged_ptr.store(v); }
   /*
@@ -98,7 +100,9 @@ struct DPN final {
   bool IncRef() {
     auto v = tagged_ptr.load();
     while (v != 0 && v != loading_flag)
-      if (tagged_ptr.compare_exchange_weak(v, v + tag_one))
+      //if (tagged_ptr.compare_exchange_weak(v, v + tag_one))
+      // on arm platform, we need strong memory order here.
+      if (tagged_ptr.compare_exchange_strong(v, v + tag_one))
         return true;
     return false;
   }
